@@ -130,52 +130,17 @@ body {
     box-shadow: 0 10px 30px rgba(0, 255, 136, 0.3);
 }
 
-/* Laptop Mockup */
-.laptop-mockup {
-    perspective: 1000px;
-    transform: rotateY(-15deg) rotateX(10deg);
-    transition: transform 0.3s ease;
+/* Hero Screenshot */
+.hero-screenshot {
+    width: 700px;
+    height: 470px;
+    object-fit: contain;
+    transition: transform 0.3s ease, filter 0.3s ease;
+    background: transparent;
 }
 
-.laptop-mockup:hover {
-    transform: rotateY(-10deg) rotateX(5deg);
-}
-
-.screen {
-    width: 400px;
-    height: 250px;
-    background: #000;
-    border-radius: 10px;
-    border: 8px solid #333;
-    position: relative;
-    overflow: hidden;
-}
-
-.screen::before {
-    content: '';
-    position: absolute;
-    bottom: -20px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80%;
-    height: 20px;
-    background: #333;
-    border-radius: 0 0 20px 20px;
-}
-
-.screen-content {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    background: linear-gradient(135deg, #1a1a3d, #2a2a5d);
-}
-
-.logo {
-    color: #00ff88;
-    font-weight: 700;
-    font-size: 1.2rem;
-    text-align: center;
+.hero-screenshot:hover {
+    filter: drop-shadow(0 10px 20px rgba(0, 255, 136, 0.2)) drop-shadow(0 0 15px rgba(0, 255, 136, 0.15));
 }
 
 /* Products Section */
@@ -284,6 +249,9 @@ body {
     font-weight: 600;
     transition: all 0.3s ease;
     width: 100%;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
 }
 
 .product-button:hover {
@@ -358,7 +326,7 @@ body {
 
 .footer-links {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
 }
 
@@ -383,6 +351,22 @@ body {
 }
 
 .footer-column a:hover {
+    color: #00ff88;
+}
+
+.contact-info p {
+    color: #cccccc;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.contact-info a {
+    color: #cccccc;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.contact-info a:hover {
     color: #00ff88;
 }
 
@@ -437,9 +421,10 @@ body {
         grid-template-columns: 1fr;
     }
 
-    .screen {
-        width: 300px;
-        height: 180px;
+    .hero-screenshot {
+        width: 100%;
+        max-width: 400px;
+        height: 250px;
     }
 
     .navbar {
@@ -458,6 +443,12 @@ body {
 
     .product-card {
         padding: 2rem 1.5rem;
+    }
+
+    .hero-screenshot {
+        width: 100%;
+        max-width: 320px;
+        height: 200px;
     }
 
     .container {

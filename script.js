@@ -34,30 +34,6 @@ window.addEventListener('scroll', () => {
 
 // Product card click handlers
 document.addEventListener('DOMContentLoaded', () => {
-    // OpenWebUI + OpenDossier button
-    const webUIButton = document.querySelector('.product-card:first-child .product-button');
-    if (webUIButton) {
-        webUIButton.addEventListener('click', () => {
-            alert('OpenWebUI Demo будет доступен после развертывания!');
-        });
-    }
-
-    // Local Obsidian + Copilot + S3 button (invite-only)
-    const obsidianButton = document.querySelector('.product-card.featured .product-button');
-    if (obsidianButton) {
-        obsidianButton.addEventListener('click', () => {
-            alert('Invite-only доступ! Скоро будет готова система приглашений.');
-        });
-    }
-
-    // n8n Workflows button
-    const n8nButton = document.querySelector('.product-card:last-child .product-button');
-    if (n8nButton) {
-        n8nButton.addEventListener('click', () => {
-            alert('n8n Workflows будут доступны после настройки!');
-        });
-    }
-
     // Main CTA button
     const ctaButton = document.querySelector('.cta-button');
     if (ctaButton) {
@@ -92,17 +68,7 @@ document.querySelectorAll('.product-card').forEach(card => {
     observer.observe(card);
 });
 
-// Laptop mockup interaction
-const laptopMockup = document.querySelector('.laptop-mockup');
-if (laptopMockup) {
-    laptopMockup.addEventListener('mouseenter', () => {
-        laptopMockup.style.transform = 'rotateY(-10deg) rotateX(5deg) scale(1.05)';
-    });
-    
-    laptopMockup.addEventListener('mouseleave', () => {
-        laptopMockup.style.transform = 'rotateY(-15deg) rotateX(10deg) scale(1)';
-    });
-}
+// Laptop mockup interaction - now handled by CSS hover states
 
 // Enhanced mobile menu functionality
 function initMobileMenu() {
