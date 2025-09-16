@@ -17,7 +17,7 @@ async function fetchSnippet(vaultName) {
     }
     
     try {
-        const response = await fetch(`https://il5n5g70r7.execute-api.eu-central-1.amazonaws.com/prod/invite?code=${code}`);
+        const response = await fetch(`/aws-api/invite?code=${code}`);
         const data = await response.json();
         if (data.uri) {
             // Extract just the URI from the response
