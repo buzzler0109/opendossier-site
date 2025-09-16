@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self' http://localhost:3001 https://opendossier.pro https://*.execute-api.eu-central-1.amazonaws.com; img-src 'self' data:;">
+    <title>User Guide - OpenDossier</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .guide-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 60px 20px 80px;
+            min-height: 100vh;
+        }
+        
+        .guide-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .guide-header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #00ff88, #00d4ff);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+        
+        .guide-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+        
+        .instructions {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2.5rem;
+            backdrop-filter: blur(10px);
+        }
+        
+        .instructions h2 {
+            color: #00ff88;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .instructions h3 {
+            color: #ffffff;
+            font-size: 1.2rem;
+            margin: 1.5rem 0 1rem 0;
+        }
+        
+        .instructions p,
+        .instructions li {
+            color: #cccccc;
+            line-height: 1.6;
+            margin-bottom: 0.8rem;
+        }
+        
+        .instructions ul {
+            padding-left: 1.5rem;
+        }
+        
+        .instructions li {
+            position: relative;
+        }
+        
+        .instructions li::marker {
+            color: #00ff88;
+        }
+        
+        .code-block {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            color: #00ff88;
+            overflow-x: auto;
+        }
+        
+        .user-form {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2.5rem;
+            backdrop-filter: blur(10px);
+            height: fit-content;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            color: #ffffff;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #00ff88;
+        }
+        
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: #888888;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(135deg, #00ff88, #00d4ff);
+            color: #0a0a23;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            width: 100%;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.3);
+        }
+        
+        .back-link {
+            display: inline-block;
+            color: #00ff88;
+            text-decoration: none;
+            margin-bottom: 2rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .back-link:hover {
+            color: #00d4ff;
+        }
+        
+        .highlight {
+            background: rgba(0, 255, 136, 0.1);
+            border-left: 4px solid #00ff88;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        /* Step-by-step guide styles */
+        .step-container {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+            max-height: 0;
+            overflow: hidden;
+        }
+
+        .step-container.active {
+            opacity: 1;
+            transform: translateY(0);
+            max-height: 2000px;
+        }
+
+        .step-content {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .step-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .step-content h2 {
+            color: #00ff88;
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .step-description {
+            color: #cccccc;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 2rem;
+        }
+
+        .step-instructions {
+            text-align: left;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .step-instructions ol {
+            color: #cccccc;
+            line-height: 1.8;
+            padding-left: 1.5rem;
+        }
+
+        .step-instructions li {
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+
+        .step-instructions strong {
+            color: #00ff88;
+            font-weight: 600;
+        }
+
+        .step-instructions h3 {
+            color: #00ff88;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin: 1.5rem 0 1rem 0;
+        }
+
+        .step-instructions h4 {
+            color: #ffffff;
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin: 1.2rem 0 0.8rem 0;
+        }
+
+        .step-instructions p {
+            color: #cccccc;
+            margin-bottom: 1rem;
+        }
+
+        .vault-input-container {
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .vault-input {
+            width: 100%;
+            max-width: 400px;
+            padding: 1rem;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .vault-input:focus {
+            outline: none;
+            border-color: #00ff88;
+        }
+
+        .vault-input::placeholder {
+            color: #888888;
+        }
+
+        .config-form-container {
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .config-form-container h3 {
+            color: #00ff88;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .config-textarea {
+            width: 100%;
+            max-width: 600px;
+            min-height: 150px;
+            padding: 1rem;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.3);
+            color: #ffffff;
+            font-size: 0.9rem;
+            font-family: 'Courier New', monospace;
+            transition: border-color 0.3s ease;
+            resize: vertical;
+        }
+
+        .config-textarea:focus {
+            outline: none;
+            border-color: #00ff88;
+        }
+
+        .config-textarea::placeholder {
+            color: #888888;
+        }
+
+        .copy-btn {
+            background: linear-gradient(135deg, #00d4ff, #00ff88);
+            color: #0a0a23;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .copy-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 212, 255, 0.3);
+        }
+
+        .download-container {
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .download-container h3 {
+            color: #00ff88;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .download-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #00ff88, #00d4ff);
+            color: #0a0a23;
+            text-decoration: none;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-bottom: 1rem;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.3);
+        }
+
+        .download-instructions {
+            color: #cccccc;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+
+        .download-instructions code {
+            background: rgba(0, 0, 0, 0.3);
+            color: #00ff88;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .final-instructions {
+            margin: 2rem 0;
+            text-align: left;
+        }
+
+        .model-info, .sync-info {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid #00ff88;
+        }
+
+        .model-info h3, .sync-info h3 {
+            color: #00ff88;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .model-info p, .sync-info p {
+            color: #cccccc;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .next-btn {
+            background: linear-gradient(135deg, #00ff88, #00d4ff);
+            color: #0a0a23;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            min-width: 150px;
+        }
+
+        .next-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.3);
+        }
+        
+        @media (max-width: 768px) {
+            .guide-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .step-container {
+                padding: 2rem 1.5rem;
+            }
+
+            .step-content h2 {
+                font-size: 1.5rem;
+            }
+
+            .step-icon {
+                font-size: 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="guide-container">
+        <a href="index.html" class="back-link">← Back to Main Site</a>
+        
+        <div class="guide-header">
+            <h1>User Guide</h1>
+            <p style="color: #cccccc;">Individual Access Setup for OpenDossier Platform</p>
+        </div>
+        
+        <!-- Step 1: Congratulations -->
+        <div class="step-container active" id="step1">
+            <div class="step-content">
+                <h2>Congratulations!</h2>
+                <p class="step-description">
+                    You have been granted individual access for testing the OpenDossier platform. 
+                    Below is a step-by-step guide to set up your Local Obsidian workspace, 
+                    AI Copilot integration, Cloud sync, and begin Private investigations.
+                </p>
+                <button class="next-btn" id="nextBtn1">Next</button>
+            </div>
+        </div>
+
+        <!-- Step 2: Local Obsidian Setup -->
+        <div class="step-container" id="step2">
+            <div class="step-content">
+                <h2>Step 1: Local Obsidian Workspace</h2>
+                <p class="step-description">
+                    Create a new vault with the name "dossier". If you want to use an existing vault - 
+                    please specify its name in the form below. This is necessary for correct synchronization.
+                </p>
+                
+                <div class="vault-input-container">
+                    <input type="text" id="vaultName" placeholder="leave empty if you create new vault 'dossier'" class="vault-input">
+                </div>
+                <div class="step-instructions">
+                    <h3>Install Required Plugins</h3>
+                    <p>Just a few more simple steps. You need to install Copilot and Remotely Save plugins in Obsidian.</p>
+                    
+                    <h4>Install Copilot</h4>
+                    <ol>
+                        <li>Settings → Community plugins → Browse</li>
+                        <li>Search "Copilot" (from logancyang/obsidian-copilot)</li>
+                        <li>Install</li>
+                    </ol>
+                    
+                    <h4>Install Remotely Save</h4>
+                    <ol>
+                        <li>Settings → Community plugins → Browse</li>
+                        <li>Search "Remotely Save"</li>
+                        <li>Install</li>
+                    </ol>
+                    <p>Please, enable plugins a little bit later.</p>
+                </div>
+                <button class="next-btn" id="nextBtn2">Next</button>
+            </div>
+        </div>
+
+        <!-- Step 3: Remotely Save Configuration -->
+        <div class="step-container" id="step3">
+            <div class="step-content">
+                <h2>Step 2: Remotely Save Configuration</h2>
+                <p class="step-description">
+                    Almost ready! Open the Remotely Save plugin settings. Copy the text from the form below 
+                    into the Import field of the Import and Export partial settings section.
+                </p>
+                
+                <div class="config-form-container">
+                    <h3>Configuration Data</h3>
+                    <textarea id="configData" class="config-textarea" readonly placeholder="Configuration data will appear here after completing the previous step..."></textarea>
+                    <button id="copyConfigBtn" class="copy-btn">Copy to Clipboard</button>
+                </div>
+                
+                <button class="next-btn" id="nextBtn3">Next</button>
+            </div>
+        </div>
+
+        <!-- Step 4: Copilot Configuration -->
+        <div class="step-container" id="step4">
+            <div class="step-content">
+                <h2>Step 3: Copilot Configuration</h2>
+                <p class="step-description">
+                    For Copilot setup, download the data.json file and save it to the directory 
+                    <code>&lt;your_vault&gt;\.obsidian\plugins\copilot</code>
+                </p>
+                
+                <div class="download-container">
+                    <h3>Download Configuration File</h3>
+                    <a href="data.json" download="data.json" class="download-btn">
+                        📥 Download data.json
+                    </a>
+                    <p class="download-instructions">
+                        Save this file to: <code>&lt;your_vault&gt;\.obsidian\plugins\copilot\data.json</code>
+                    </p>
+                </div>
+                
+                <button class="next-btn" id="nextBtn4">Next</button>
+            </div>
+        </div>
+
+        <!-- Step 5: Final Setup -->
+        <div class="step-container" id="step5">
+            <div class="step-content">
+                <h2>Step 4: All Set!</h2>
+                <p class="step-description">
+                    All ready! Activate the plugins and start your first investigation. 
+                    Now Copilot integrates AI models, including two custom models:
+                </p>
+                
+                <div class="final-instructions">
+                    <div class="model-info">
+                        <h3>🤖 openDossier</h3>
+                        <p>Sends chat tasks to an n8n workflow</p>
+                    </div>
+                    
+                    <div class="model-info">
+                        <h3>📄 openDossier_context</h3>
+                        <p>Sends selected text via context menu to another n8n workflow that saves files to S3</p>
+                    </div>
+                    
+                    <div class="sync-info">
+                        <h3>☁️ Remotely Save</h3>
+                        <p>Syncs your Obsidian vault with an S3 bucket, so files saved by n8n appear locally after sync.</p>
+                    </div>
+                </div>
+                
+                <button class="next-btn" id="nextBtn5">Get Support</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="modal.js"></script>
+    <script src="user-guide.js"></script>
+</body>
+</html>

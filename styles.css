@@ -176,6 +176,9 @@ body {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     position: relative;
     backdrop-filter: blur(10px);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 .product-card:hover {
@@ -222,6 +225,7 @@ body {
 .product-features {
     list-style: none;
     margin-bottom: 2rem;
+    flex-grow: 1;
 }
 
 .product-features li {
@@ -252,6 +256,7 @@ body {
     text-decoration: none;
     display: inline-block;
     text-align: center;
+    margin-top: auto;
 }
 
 .product-button:hover {
