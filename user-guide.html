@@ -304,6 +304,14 @@
             margin-bottom: 1rem;
         }
 
+        .config-description {
+            color: #cccccc;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
         .config-textarea {
             width: 100%;
             max-width: 600px;
@@ -338,12 +346,38 @@
             border-radius: 25px;
             cursor: pointer;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            margin-top: 1rem;
+            min-width: 180px;
         }
 
         .copy-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 25px rgba(0, 212, 255, 0.3);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .obsidian-btn {
+            background: linear-gradient(135deg, #7c3aed, #a855f7);
+            color: #ffffff;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            min-width: 180px;
+        }
+
+        .obsidian-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(124, 58, 237, 0.3);
         }
 
         .download-container {
@@ -519,16 +553,18 @@
             <div class="step-content">
                 <h2>Step 2: Remotely Save Configuration</h2>
                 <p class="step-description">
-                    Almost ready! Open the Remotely Save plugin settings. Copy the text from the form below 
+                    Almost ready! Click the button below for automatic plugin configuration. Or do it manually. Open the Remotely Save plugin settings. Copy the text from the form below 
                     into the Import field of the Import and Export partial settings section.
                 </p>
                 
                 <div class="config-form-container">
                     <h3>Configuration Data</h3>
                     <textarea id="configData" class="config-textarea" readonly placeholder="Configuration data will appear here after completing the previous step..."></textarea>
+                </div>
+                <div class="button-group">
+                    <button id="openObsidianBtn" class="obsidian-btn" style="display: none;">Auto Setup Plugin</button>
                     <button id="copyConfigBtn" class="copy-btn">Copy to Clipboard</button>
                 </div>
-                
                 <button class="next-btn" id="nextBtn3">Next</button>
             </div>
         </div>

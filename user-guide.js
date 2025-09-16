@@ -60,8 +60,13 @@ function showNextStep() {
             // If showing step 3, populate the config data
             if (currentStep === 3) {
                 const configTextarea = document.getElementById('configData');
+                const obsidianBtn = document.getElementById('openObsidianBtn');
                 if (configTextarea && configData) {
                     configTextarea.value = configData;
+                    // Show the Open in Obsidian button
+                    if (obsidianBtn) {
+                        obsidianBtn.style.display = 'inline-block';
+                    }
                 }
             }
             
@@ -108,6 +113,21 @@ document.addEventListener('DOMContentLoaded', function() {
                 showSuccess('Configuration data copied to clipboard!', 'Copied');
             } else {
                 showError('No configuration data to copy. Please complete the previous step first.', 'No Data');
+            }
+        });
+    }
+    
+    // Add event listener for Open in Obsidian button
+    const obsidianBtn = document.getElementById('openObsidianBtn');
+    if (obsidianBtn) {
+        obsidianBtn.addEventListener('click', function() {
+            const configTextarea = document.getElementById('configData');
+            if (configTextarea && configTextarea.value) {
+                // Open the obsidian:// URI directly
+                window.location.href = configTextarea.value;
+                showSuccess('Opening Obsidian for automatic plugin setup...', 'Auto Setup');
+            } else {
+                showError('No configuration data available. Please complete the previous step first.', 'No Data');
             }
         });
     }
