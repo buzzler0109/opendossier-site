@@ -43,6 +43,15 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
+
+    // Product buttons - direct navigation (no modals)
+    const productButtons = document.querySelectorAll('.product-button');
+    productButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+            // Let the default link behavior handle navigation
+            // No preventDefault() - buttons will work as normal links
+        });
+    });
 });
 
 // Intersection Observer for animations
