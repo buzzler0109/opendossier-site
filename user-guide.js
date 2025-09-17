@@ -5,6 +5,8 @@ const API_BASE_URL = 'https://opendossier.pro/api';
 let currentStep = 1;
 const totalSteps = 5;
 let configData = ''; // Store the configuration data
+let extractedUserId = ''; // Store extracted user ID
+let generatedDataJson = ''; // Store generated data.json
 
 // Add function to extract user ID from configData
 function extractUserId(configData) {
@@ -38,7 +40,7 @@ function generateDataJson(userId) {
         "userId": userId,
         "isPlusUser": false,
         "plusLicenseKey": "",
-        "openAIApiKey": userId,
+        "openAIApiKey": "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",
         "openAIOrgId": "",
         "huggingfaceApiKey": "",
         "cohereApiKey": "",
@@ -389,15 +391,15 @@ function generateDataJson(userId) {
 
 // Add function to save data.json to server
 async function saveDataJsonToServer() {
-    if (!window.generatedDataJson) return;
+    if (!generatedDataJson) return;
     
     try {
         const response = await fetch('/api/save-data-json', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ 
-                dataJson: window.generatedDataJson,
-                userId: window.extractedUserId 
+                dataJson: generatedDataJson,
+                userId: extractedUserId 
             })
         });
         
@@ -433,14 +435,14 @@ async function fetchSnippet(vaultName) {
             const userId = extractUserId(data.uri);
             if (userId) {
                 console.log('Extracted User ID:', userId);
-                window.extractedUserId = userId;
+                extractedUserId = userId;
                 
                 // Generate data.json with userId
                 const dataJsonContent = generateDataJson(userId);
                 console.log('Generated data.json:', dataJsonContent);
                 
                 // Store for later use
-                window.generatedDataJson = dataJsonContent;
+                generatedDataJson = dataJsonContent;
                 
                 // Save data.json to server
                 await saveDataJsonToServer();
@@ -461,14 +463,14 @@ async function fetchSnippet(vaultName) {
             const userId = extractUserId(uri);
             if (userId) {
                 console.log('Extracted User ID:', userId);
-                window.extractedUserId = userId;
+                extractedUserId = userId;
                 
                 // Generate data.json with userId
                 const dataJsonContent = generateDataJson(userId);
                 console.log('Generated data.json:', dataJsonContent);
                 
                 // Store for later use
-                window.generatedDataJson = dataJsonContent;
+                generatedDataJson = dataJsonContent;
                 
                 // Save data.json to server
                 await saveDataJsonToServer();
