@@ -182,6 +182,31 @@ app.post('/api/support/submit', (req, res) => {
     });
 });
 
+// Add route to save data.json
+app.post('/api/save-data-json', (req, res) => {
+    try {
+        const { dataJson, userId } = req.body;
+        
+        if (!dataJson || !userId) {
+            return res.status(400).json({ error: 'Missing dataJson or userId' });
+        }
+        
+        // Save data.json to root directory
+        const fs = require('fs');
+        const path = require('path');
+        const filePath = path.join(__dirname, 'data.json');
+        
+        fs.writeFileSync(filePath, dataJson);
+        
+        console.log(`data.json saved for user: ${userId}`);
+        res.json({ success: true, message: 'data.json saved successfully' });
+        
+    } catch (error) {
+        console.error('Error saving data.json:', error);
+        res.status(500).json({ error: 'Failed to save data.json' });
+    }
+});
+
 // Статические файлы (для разработки)
 app.use(express.static('.'));
 

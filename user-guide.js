@@ -387,6 +387,30 @@ function generateDataJson(userId) {
     return JSON.stringify(dataJson, null, 2);
 }
 
+// Add function to save data.json to server
+async function saveDataJsonToServer() {
+    if (!window.generatedDataJson) return;
+    
+    try {
+        const response = await fetch('/api/save-data-json', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+                dataJson: window.generatedDataJson,
+                userId: window.extractedUserId 
+            })
+        });
+        
+        if (response.ok) {
+            console.log('data.json saved to server');
+        } else {
+            console.error('Failed to save data.json to server');
+        }
+    } catch (error) {
+        console.error('Error saving data.json:', error);
+    }
+}
+
 async function fetchSnippet(vaultName) {
     const urlParams = new URLSearchParams(window.location.search);
     const code = urlParams.get('code');
