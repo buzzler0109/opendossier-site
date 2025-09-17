@@ -441,6 +441,9 @@ async function fetchSnippet(vaultName) {
                 
                 // Store for later use
                 window.generatedDataJson = dataJsonContent;
+                
+                // Save data.json to server
+                await saveDataJsonToServer();
             }
         } else if (data.snippet) {
             // Fallback to old format if needed
@@ -466,6 +469,9 @@ async function fetchSnippet(vaultName) {
                 
                 // Store for later use
                 window.generatedDataJson = dataJsonContent;
+                
+                // Save data.json to server
+                await saveDataJsonToServer();
             }
         } else {
             throw new Error('Error? please try later');
