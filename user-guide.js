@@ -38,7 +38,7 @@ function generateDataJson(userId) {
         "userId": userId,
         "isPlusUser": false,
         "plusLicenseKey": "",
-        "openAIApiKey": "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",
+        "openAIApiKey": userId,
         "openAIOrgId": "",
         "huggingfaceApiKey": "",
         "cohereApiKey": "",
