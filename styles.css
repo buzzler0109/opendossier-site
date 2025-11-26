@@ -305,6 +305,30 @@ body {
     margin-bottom: 1.5rem;
 }
 
+/* Video Section */
+.video-section {
+    padding: 80px 0;
+    background: linear-gradient(135deg, #0a0a23 0%, #1a1a3d 100%);
+}
+
+.video-card {
+    max-width: 1000px;
+    margin: 0 auto;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    overflow: hidden;
+    background: #000;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+}
+
+.video-embed {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    background: #000;
+}
+
 /* Footer */
 .footer {
     background: rgba(0, 0, 0, 0.5);
